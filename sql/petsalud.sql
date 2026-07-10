@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS petsalud
 
 USE petsalud;
 
--- Tabla de usuarios (login)
+
 CREATE TABLE usuarios (
   id         INT AUTO_INCREMENT PRIMARY KEY,
   nombre     VARCHAR(100) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE usuarios (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de propietarios
+
 CREATE TABLE propietarios (
   id        INT AUTO_INCREMENT PRIMARY KEY,
   nombre    VARCHAR(100) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE propietarios (
   direccion VARCHAR(255) NULL
 );
 
--- Tabla de mascotas
+
 CREATE TABLE mascotas (
   id                INT AUTO_INCREMENT PRIMARY KEY,
   nombre            VARCHAR(80) NOT NULL,
