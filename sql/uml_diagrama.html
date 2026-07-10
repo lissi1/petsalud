@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px;
+    background: #ffffff;
+    font-family: 'Segoe UI', Consolas, monospace;
+    width: 1400px;
+  }
+  h1 { font-family: 'Segoe UI', sans-serif; font-size: 22px; margin: 0 0 30px 0; color: #1a1a2e; }
+  .diagram { display: flex; align-items: flex-start; gap: 60px; }
+  .grupo { display: flex; flex-direction: column; }
+  .grupo-rel { display: flex; align-items: flex-start; gap: 0; }
+  .clase {
+    border: 2px solid #1a1a2e;
+    border-radius: 4px;
+    width: 330px;
+    background: #fff;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+  }
+  .clase .titulo {
+    background: #1a1a2e;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 2px 2px 0 0;
+  }
+  .clase .atributos, .clase .metodos {
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .clase .atributos { border-bottom: 2px solid #1a1a2e; }
+  .nota {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 12px;
+    font-style: italic;
+    color: #666;
+    width: 330px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .conector {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 44px;
+  }
+  .conector .etiquetas {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 0 4px;
+  }
+  .conector .linea { width: 100%; height: 2px; background: #1a1a2e; margin: 2px 0 8px 0; }
+  .conector .texto-rel {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #1a1a2e;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<h1>Diagrama UML de clases — Clínica Veterinaria PetSalud</h1>
+
+<div class="diagram">
+
+  <div class="grupo">
+    <div class="clase">
+      <div class="titulo">Usuario</div>
+      <div class="atributos">
+        - id: int<br>
+        - nombre: string<br>
+        - email: string<br>
+        - password: string<br>
+        - created_at: DateTime
+      </div>
+      <div class="metodos">
+        + __construct(pdo: PDO)<br>
+        + porEmail(email): array|false<br>
+        + crear(nombre, email, passPlano): bool<br>
+        + verificar(email, passPlano): array|false
+      </div>
+    </div>
+    <p class="nota">(Usuario es independiente — sin relación con las demás clases, solo login)</p>
+  </div>
+
+  <div class="grupo-rel">
+    <div class="clase">
+      <div class="titulo">Propietario</div>
+      <div class="atributos">
+        - id: int<br>
+        - nombre: string<br>
+        - telefono: string<br>
+        - email: string<br>
+        - direccion: string|null
+      </div>
+      <div class="metodos">
+        + __construct(pdo: PDO)<br>
+        + todas(): array<br>
+        + porId(id): array|false<br>
+        + crear(nombre, telefono, email, direccion): bool<br>
+        + actualizar(id, nombre, telefono, email, direccion): bool<br>
+        + eliminar(id): bool
+      </div>
+    </div>
+
+    <div class="conector">
+      <div class="etiquetas"><span>1</span><span>N</span></div>
+      <div class="linea"></div>
+      <div class="texto-rel">Propietario<br>1 &#8212;&#9670; N<br>Mascota</div>
+    </div>
+
+    <div class="clase">
+      <div class="titulo">Mascota</div>
+      <div class="atributos">
+        - id: int<br>
+        - nombre: string<br>
+        - especie: enum(Perro,Gato,Ave,Reptil,Otro)<br>
+        - raza: string|null<br>
+        - fecha_nacimiento: Date|null<br>
+        - peso_kg: float|null<br>
+        - propietario_id: int
+      </div>
+      <div class="metodos">
+        + __construct(pdo: PDO)<br>
+        + todas(): array<br>
+        + porId(id): array|false<br>
+        + crear(nombre, especie, raza, fechaNac, pesoKg, propietarioId): bool<br>
+        + actualizar(id, nombre, especie, raza, fechaNac, pesoKg, propietarioId): bool<br>
+        + eliminar(id): bool
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
